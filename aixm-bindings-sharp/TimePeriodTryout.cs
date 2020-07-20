@@ -35,8 +35,9 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-using aero.aixm.v51;
 using System.Threading;
+using aixm.v5_1_1;
+using net.opengis.gml._3;
 
 namespace aixm_bindings_sharp
 {
@@ -85,16 +86,16 @@ namespace aixm_bindings_sharp
 		private void ExecuteProgrammaticDataSerialization()
 		{
 			NavaidTimeSliceType type = new NavaidTimeSliceType();
-			type.interpretation = aero.aixm.v51.interpretation.TEMPDELTA;
-			type.validTime = new TimePrimitivePropertyType();
+			type.Interpretation = Interpretation.TEMPDELTA;
+			type.ValidTime = new TimePrimitivePropertyType();
 			TimePeriodType tp = new TimePeriodType();
 			
 			TimePositionType position = new TimePositionType();
 			position.Value = "2011-01-13T12:00:00.000Z";
-			tp.Item = position;
-			tp.Item1 = position;
+			tp.BeginPosition = position;
+			tp.EndPosition = position;
 			
-			type.validTime.AbstractTimePrimitive = tp;
+			type.ValidTime.AbstractTimePrimitive = tp;
 			
 			GenericRoundtrip<NavaidTimeSliceType> gr = new GenericRoundtrip<NavaidTimeSliceType>();
 			string result = gr.Serialize(type);

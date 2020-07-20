@@ -33,7 +33,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using aero.aixm.v51;
+using aixm.v5_1_1;
 
 namespace aixm_bindings_sharp
 {
