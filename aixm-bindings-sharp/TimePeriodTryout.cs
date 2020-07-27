@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA or
  * visit the Free Software Foundation web page, http://www.fsf.org.
  */
- 
+
 /*
  * Created by SharpDevelop.
  * User: matthes rieke
@@ -36,13 +36,13 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using System.Threading;
-using aixm.v5_1_1;
 using net.opengis.gml._3;
+using aero.aixm.v5_1_1;
 
 namespace aixm_bindings_sharp
 {
-	class TimePeriodTryout
-	{
+    class TimePeriodTryout
+    {
         private string path;
 
         public TimePeriodTryout(string p)
@@ -50,8 +50,8 @@ namespace aixm_bindings_sharp
             this.path = p;
         }
 
-		public void Test()
-		{
+        public void Test()
+        {
             if (!Directory.Exists(this.path))
             {
                 return;
@@ -60,48 +60,48 @@ namespace aixm_bindings_sharp
             string input = this.path + "\\timePeriod.xml";
             string output = this.path + "\\timePeriod-re-cs.xml";
 
-			Console.WriteLine("TimePeriod roundtripping...!");
-			
-			GenericRoundtrip<TimePeriodType> rt = new GenericRoundtrip<TimePeriodType>();
-			rt.DoRoundtrip(input, output);
-			
-			Console.WriteLine("Rondtrip complete! Took {0} ms", rt.ElapsedTime);
+            Console.WriteLine("TimePeriod roundtripping...!");
+
+            GenericRoundtrip<TimePeriodType> rt = new GenericRoundtrip<TimePeriodType>();
+            rt.DoRoundtrip(input, output);
+
+            Console.WriteLine("Rondtrip complete! Took {0} ms", rt.ElapsedTime);
             Thread.Sleep(2000);
-            
+
 
             string inputSlice = this.path + "\\airportHeliportTimeSlice.xml";
             string outputSlice = this.path + "\\airportHeliportTimeSlice-re-cs.xml";
 
-			Console.WriteLine("navaidTimeSlice roundtripping...!");
-			
-			GenericRoundtrip<AirportHeliportTimeSliceType> rt2 = new GenericRoundtrip<AirportHeliportTimeSliceType>();
-			rt2.DoRoundtrip(inputSlice, outputSlice);
-			
-			Console.WriteLine("Rondtrip complete! Took {0} ms", rt2.ElapsedTime);
+            Console.WriteLine("navaidTimeSlice roundtripping...!");
+
+            GenericRoundtrip<AirportHeliportTimeSliceType> rt2 = new GenericRoundtrip<AirportHeliportTimeSliceType>();
+            rt2.DoRoundtrip(inputSlice, outputSlice);
+
+            Console.WriteLine("Rondtrip complete! Took {0} ms", rt2.ElapsedTime);
             Thread.Sleep(2000);
-            
+
             ExecuteProgrammaticDataSerialization();
-		}
-		
-		private void ExecuteProgrammaticDataSerialization()
-		{
-			NavaidTimeSliceType type = new NavaidTimeSliceType();
-			type.Interpretation = Interpretation.TEMPDELTA;
-			type.ValidTime = new TimePrimitivePropertyType();
-			TimePeriodType tp = new TimePeriodType();
-			
-			TimePositionType position = new TimePositionType();
-			position.Value = "2011-01-13T12:00:00.000Z";
-			tp.BeginPosition = position;
-			tp.EndPosition = position;
-			
-			type.ValidTime.AbstractTimePrimitive = tp;
-			
-			GenericRoundtrip<NavaidTimeSliceType> gr = new GenericRoundtrip<NavaidTimeSliceType>();
-			string result = gr.Serialize(type);
-			GenericRoundtrip<NavaidTimeSliceType>.WriteFileContents(result, this.path +"\\programmaticTimePeriod-re-cs.xml");
-		}
-		
+        }
+
+        private void ExecuteProgrammaticDataSerialization()
+        {
+            NavaidTimeSliceType type = new NavaidTimeSliceType();
+            type.Interpretation = Interpretation.TEMPDELTA;
+            type.ValidTime = new TimePrimitivePropertyType();
+            TimePeriodType tp = new TimePeriodType();
+
+            TimePositionType position = new TimePositionType();
+            position.Value = "2011-01-13T12:00:00.000Z";
+            tp.BeginPosition = position;
+            tp.EndPosition = position;
+
+            type.ValidTime.AbstractTimePrimitive = tp;
+
+            GenericRoundtrip<NavaidTimeSliceType> gr = new GenericRoundtrip<NavaidTimeSliceType>();
+            string result = gr.Serialize(type);
+            GenericRoundtrip<NavaidTimeSliceType>.WriteFileContents(result, this.path + "\\programmaticTimePeriod-re-cs.xml");
+        }
+
 
     }
 }

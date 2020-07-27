@@ -29,14 +29,9 @@
  * Time: 13:30
  * 
  */
-using System;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Xml;
-using System.Xml.Serialization;
 
-using aero.aixm.v51;
+using System.IO;
+using System.Xml.Serialization;
 using System.Diagnostics;
 
 namespace aixm_bindings_sharp
